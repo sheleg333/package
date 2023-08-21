@@ -1,4 +1,3 @@
-# build env to run build independently
 name: mlc-llm-build
 
 channels:
