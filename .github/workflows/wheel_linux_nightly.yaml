@@ -15,6 +15,7 @@ on:
 
 permissions:
   contents: write
+  packages: read
 
 jobs:
   Build:
@@ -24,14 +25,15 @@ jobs:
         mlc-chat-pkg: ['mlc-chat-nightly']
         # matrix of build configs
         config:
-          # - gpu: 'none'
-            # image: '${{ github.actor }}/package-cpu:latest'
+          - gpu: 'none'
+            image: '${{ github.actor }}/package-cpu:latest'
           - gpu: 'cuda-12.1'
             image: '${{ github.actor }}/package-cu121:latest'
           - gpu: 'cuda-12.1'
             image: '${{ github.actor }}/package-cu122:latest'
 
     runs-on: ubuntu-latest
+    environment: production
 
     steps:
     - name: Reclaim disk space
