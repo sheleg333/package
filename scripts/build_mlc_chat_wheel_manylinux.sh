@@ -5,7 +5,7 @@ source /multibuild/manylinux_utils.sh
 function usage() {
     echo "Usage: $0 [--gpu GPU-VERSION]"
     echo
-    echo -e "--gpu {none cuda-11.1 cuda-11.3 cuda-11.6 cuda-11.7 cuda-11.8 cuda-12.1 rocm}"
+    echo -e "--gpu {none cuda-11.8 cuda-12.1 cuda-12.2}"
     echo -e "\tSpecify the GPU version (CUDA/ROCm) in the MLC-LLM (default: none)."
 }
 
@@ -37,9 +37,9 @@ function audit_mlc_chat_wheel() {
 }
 
 MLC_LLM_PYTHON_DIR="/workspace/mlc-llm/python"
-PYTHON_VERSIONS_CPU=("3.7" "3.8" "3.9" "3.10" "3.11")
-PYTHON_VERSIONS_GPU=("3.7" "3.8" "3.9" "3.10" "3.11")
-GPU_OPTIONS=("none" "cuda-11.1" "cuda-11.3" "cuda-11.6" "cuda-11.7" "cuda-11.8" "cuda-12.1" "rocm")
+PYTHON_VERSIONS_CPU=("3.10" "3.11")
+PYTHON_VERSIONS_GPU=("3.10" "3.11")
+GPU_OPTIONS=("none" "cuda-11.8" "cuda-12.1" "cuda-12.2")
 GPU="none"
 
 while [[ $# -gt 0 ]]; do
@@ -66,7 +66,7 @@ done
 if ! in_array "${GPU}" "${GPU_OPTIONS[*]}" ; then
     echo "Invalid GPU option: ${GPU}"
     echo
-    echo 'GPU version can only be {"none", "cuda-11.1", "cuda-11.3", "cuda-11.6" "cuda-11.7" "cuda-11.8" "cuda-12.1" "rocm"}'
+    echo 'GPU version can only be {"none", "cuda-11.8" "cuda-12.1" ""cuda-12.2"}'
     exit -1
 fi
 

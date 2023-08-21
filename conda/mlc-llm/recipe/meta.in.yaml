@@ -28,8 +28,8 @@ requirements:
     - {{ compiler('cxx') }} # [not osx]
     - cmake
     - libvulkan-headers     # [not osx]
-    - spirv-tools           # [not osx]
-    - spirv-headers         # [not osx]
+    # - spirv-tools           # [not osx]
+    # - spirv-headers         # [not osx]
     - libvulkan-loader      # [not osx]
     - make # [not win]
 
@@ -44,8 +44,8 @@ outputs:
         - cmake
         - git
         - libvulkan-headers     # [not osx]
-        - spirv-tools           # [not osx]
-        - spirv-headers         # [not osx]
+        # - spirv-tools           # [not osx]
+        # - spirv-headers         # [not osx]
         - libvulkan-loader      # [not osx]
         - make # [not win]
       host:
