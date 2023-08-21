@@ -1,13 +1,17 @@
 # GH actions.
 name: Wheel-Linux-Nightly
 
+
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 1 * * 3,6' # 1 AM UTC
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
+  schedule:
+    - cron: '0 1 * * 3,6' # 6 AM UTC
 
 permissions:
   contents: write
@@ -28,7 +32,6 @@ jobs:
             image: '${{ github.actor }}/package-cu122:latest'
 
     runs-on: ubuntu-latest
-    environment: production
 
     steps:
     - name: Reclaim disk space
@@ -46,7 +49,6 @@ jobs:
       run: |
         rm -rf conda
         ln -s 3rdparty/tlcpack/conda conda
-
     - name: Checkout source
       run: |
         git clone https://github.com/mlc-ai/relax tvm --recursive
@@ -55,44 +57,23 @@ jobs:
       run: |
         python scripts/sync_package.py --gpu ${{ matrix.config.gpu }} --package tvm --package-name ${{ matrix.pkg }} --revision origin/mlc --skip-checkout --skip-conda
         python scripts/sync_package.py --gpu ${{ matrix.config.gpu }} --package mlc-llm --package-name ${{ matrix.mlc-chat-pkg }} --revision origin/main --skip-checkout --skip-conda
-
-    - name: Build TVM Unity 1
-      if: ${{ matrix.config.gpu == 'cuda-12.1' }}
+    - name: Build TVM Unity
       env:
-        IMAGE: 'ghcr.io/${{ github.actor }}/package-cu121:latest'
-        GPU: 'cuda-12.1'
+        IMAGE: ${{ matrix.config.image }}
+        GPU: ${{ matrix.config.gpu }}
       run: |
         docker/bash.sh --no-gpu $IMAGE ./scripts/build_mlc_ai_wheel_manylinux.sh --gpu $GPU
-
-    - name: Build TVM Unity 2
-      if: ${{ matrix.config.gpu == 'cuda-12.2' }}
+    - name: Build MLC-Chat
       env:
-        IMAGE: 'ghcr.io/${{ github.actor }}/package-cu122:latest'
-        GPU: 'cuda-12.2'
-      run: |
-        docker/bash.sh --no-gpu $IMAGE ./scripts/build_mlc_ai_wheel_manylinux.sh --gpu $GPU
-
-    - name: Build MLC-Chat 1
-      if: ${{ matrix.config.gpu == 'cuda-12.1' }}
-      env:
-        IMAGE: 'ghcr.io/${{ github.actor }}/package-cu121:latest'
+        IMAGE: ${{ matrix.config.image }}
         GPU: ${{ matrix.config.gpu }}
       run: |
         docker/bash.sh --no-gpu $IMAGE ./scripts/build_mlc_chat_wheel_manylinux.sh --gpu $GPU
-
-    - name: Build MLC-Chat 2
-      if: ${{ matrix.config.gpu == 'cuda-12.2' }}
-      env:
-        IMAGE: '$ghcr.io/{{ github.actor }}/package-cu122:latest'
-        GPU: ${{ matrix.config.gpu }}
-      run: |
-        docker/bash.sh --no-gpu $IMAGE ./scripts/build_mlc_chat_wheel_manylinux.sh --gpu $GPU
-
     - name: Wheel-Deploy
       if: github.ref == 'refs/heads/main'
       uses: softprops/action-gh-release@v1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.MLC_GITHUB_TOKEN }}
       with:
         files: |
           tvm/python/repaired_wheels/*.whl
