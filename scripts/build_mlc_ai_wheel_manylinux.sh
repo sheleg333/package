@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 source /multibuild/manylinux_utils.sh
-source /opt/rh/gcc-toolset-12/enable
+source /opt/rh/gcc-toolset-12/enable # GCC-11 is the hightest GCC version compatible with NVCC < 12
 
 function usage() {
     echo "Usage: $0 [--gpu GPU-VERSION]"

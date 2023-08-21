@@ -76,7 +76,6 @@ jobs:
         registry: ghcr.io
         username: ${{ github.actor }}
         password: ${{ secrets.GHCR_TOKEN }}
-
     - name: Build MLC-Chat@Win
       run: >-
         scripts/build_mlc_chat_lib_win.bat

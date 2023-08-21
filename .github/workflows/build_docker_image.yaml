@@ -4,15 +4,17 @@ name: Build Docker Images
 on:
   workflow_dispatch:
 
+permissions:
+  packages: write
+
 jobs:
   Build:
     strategy:
       matrix:
         platform:
-#          - cpu
-#          - cu118
+          - cpu
           - cu121
-#          - cu122
+          - cu122
 
     runs-on: ubuntu-latest
     environment: production

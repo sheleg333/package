@@ -20,7 +20,7 @@ jobs:
         mlc-chat-pkg: ['mlc-chat-nightly']
         # matrix of build configs
         config:
-          - gpu: 'none'
+          # - gpu: 'none'
           - gpu: 'cuda-12.1'
           - gpu: 'cuda-12.1'
 
