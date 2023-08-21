@@ -163,14 +163,10 @@ def main():
         default="none",
         choices=[
             "none",
-            "cuda-10.2",
-            "cuda-11.1",
-            "cuda-11.3",
-            "cuda-11.6",
-            "cuda-11.7",
             "cuda-11.8",
             "cuda-12.1",
-            "rocm",
+            "cuda-12.2"
+            # "rocm",
         ],
         help="GPU (CUDA/ROCm) version to be linked to the resultant binaries,"
         "or none, to disable CUDA/ROCm. Defaults to none.",
