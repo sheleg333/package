@@ -93,7 +93,7 @@ jobs:
     - name: Build MLC-Chat 2
       if: ${{ matrix.config.gpu == 'cuda-12.2' }}
       env:
-        IMAGE: '$ghcr.io/{{ github.actor }}/package-cu122:latest'
+        IMAGE: '$ghcr.io/${{ github.actor }}/package-cu122:latest'
         GPU: ${{ matrix.config.gpu }}
       run: |
         docker/bash.sh --no-gpu $IMAGE ./scripts/build_mlc_chat_wheel_manylinux.sh --gpu $GPU
@@ -107,5 +107,5 @@ jobs:
         files: |
           tvm/python/repaired_wheels/*.whl
           mlc-llm/python/repaired_wheels/*.whl
-        tag_name: v0.9.dev0
+        tag_name: v0.9a.dev0
         prerelease: true
