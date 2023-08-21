@@ -94,6 +94,7 @@ if [[ ${GPU} == "rocm" ]]; then
     echo set\(USE_ROCM ON\) >> config.cmake
 elif [[ ${GPU} != "none" ]]; then
     echo set\(USE_CUDA ON\) >> config.cmake
+    echo set\(USE_VULKAN OFF\) >> config.cmake
 fi
 
 # compile the mlc-llm

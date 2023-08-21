@@ -22,8 +22,8 @@ ENV PATH=${CUDA_HOME}/bin:${PATH}
 ENV LD_LIBRARY_PATH=${CUDA_HOME}/lib64:${PATH}
 
 # install vulkan sdk
-COPY install/almalinux_install_vulkan_sdk.sh /install/almalinux_install_vulkan_sdk.sh
-RUN bash /install/almalinux_install_vulkan_sdk.sh
+#COPY install/almalinux_install_vulkan_sdk.sh /install/almalinux_install_vulkan_sdk.sh
+#RUN bash /install/almalinux_install_vulkan_sdk.sh
 
 # upgrade patchelf due to the bug in patchelf 0.10
 # see details at https://stackoverflow.com/questions/61007071/auditwheel-repair-not-working-as-expected
