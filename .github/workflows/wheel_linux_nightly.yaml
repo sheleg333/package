@@ -29,7 +29,7 @@ jobs:
             image: '${{ github.actor }}/package-cpu:latest'
           - gpu: 'cuda-12.1'
             image: '${{ github.actor }}/package-cu121:latest'
-          - gpu: 'cuda-12.1'
+          - gpu: 'cuda-12.2'
             image: '${{ github.actor }}/package-cu122:latest'
 
     runs-on: ubuntu-latest
