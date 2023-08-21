@@ -9,8 +9,8 @@ dependencies:
   - anaconda-client
   - libvulkan-headers
   - libvulkan-loader
-  - spirv-tools
-  - spirv-headers
+  # - spirv-tools
+  # - spirv-headers
   - git
   - cmake
   - bzip2

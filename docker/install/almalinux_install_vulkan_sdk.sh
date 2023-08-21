@@ -3,7 +3,7 @@
 set -e
 set -o pipefail
 
-export vulkan_version="1.3.236.0"
+export vulkan_version="1.3.250.1"
 mkdir -p ~/vulkan
 cd /tmp
 wget https://sdk.lunarg.com/sdk/download/${vulkan_version}/linux/vulkansdk-linux-x86_64-${vulkan_version}.tar.gz

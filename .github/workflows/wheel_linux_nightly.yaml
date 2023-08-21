@@ -1,8 +1,9 @@
 # GH actions.
-name: Wheel-Manylinux-Nightly
+name: Wheel-Linux-Nightly
 
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -10,7 +11,10 @@ on:
     branches:
       - main
   schedule:
-    - cron: '0 6 * * *' # 6 AM UTC
+    - cron: '0 1 * * 3,6' # 6 AM UTC
+
+permissions:
+  contents: write
 
 jobs:
   Build:
@@ -20,18 +24,12 @@ jobs:
         mlc-chat-pkg: ['mlc-chat-nightly']
         # matrix of build configs
         config:
-          - gpu: 'none'
-            image: 'mlcaidev/package-cpu:072632e'
-          - gpu: 'cuda-11.6'
-            image: 'mlcaidev/package-cu116:072632e'
-          - gpu: 'cuda-11.7'
-            image: 'mlcaidev/package-cu117:072632e'
-          - gpu: 'cuda-11.8'
-            image: 'mlcaidev/package-cu118:072632e'
+          # - gpu: 'none'
+            # image: '${{ github.actor }}/package-cpu:latest'
           - gpu: 'cuda-12.1'
-            image: 'mlcaidev/package-cu121:072632e'
-          - gpu: 'rocm'
-            image: 'mlcaidev/package-rocm:de46495'
+            image: '${{ github.actor }}/package-cu121:latest'
+          - gpu: 'cuda-12.1'
+            image: '${{ github.actor }}/package-cu122:latest'
 
     runs-on: ubuntu-latest
 
